@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrieve the user data from the intent extras
         user = getIntent().getParcelableExtra("user");
+        int randomNumber = getIntent().getIntExtra("randomNumber", 0);
+
 
         nameTextView = findViewById(R.id.textView);
         descriptionTextView = findViewById(R.id.lorem_ipsum_textview);
@@ -31,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         messageButton = findViewById(R.id.btn3);
 
         // Set the name, description, and ID in the UI elements
-        String fullName = user.getName()  + user.getId();
-        nameTextView.setText(fullName);
+        nameTextView.setText(user.getName() + "-" + randomNumber);
         descriptionTextView.setText(user.getDescription());
 
         // Set the text and click listener for the Follow button

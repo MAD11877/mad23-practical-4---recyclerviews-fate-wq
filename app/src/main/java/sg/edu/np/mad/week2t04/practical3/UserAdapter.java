@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Random;
 
 import sg.edu.np.mad.week2t04.practical3.R;
 import sg.edu.np.mad.week2t04.practical3.User;
@@ -51,13 +52,13 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SpecialViewHolder holder = (SpecialViewHolder) viewHolder;
             // Bind data to views in the special layout
             holder.imageViewProfile.setImageResource(R.drawable.ic_launcher_foreground);
-            holder.textViewNameId.setText(user.getName() + "-" + user.getId());
+            holder.textViewName.setText(user.getName() + "-" + generateRandomNumber());
             holder.textViewDescription.setText(user.getDescription());
         } else if (viewHolder instanceof DefaultViewHolder) {
             DefaultViewHolder holder = (DefaultViewHolder) viewHolder;
             // Bind data to views in the default layout
             holder.imageViewProfile.setImageResource(R.drawable.ic_launcher_foreground);
-            holder.textViewNameId.setText(user.getName() + "-" + user.getId());
+            holder.textViewName.setText(user.getName() + "-" + generateRandomNumber());
             holder.textViewDescription.setText(user.getDescription());
         }
     }
@@ -80,13 +81,13 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class DefaultViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewProfile;
-        TextView textViewNameId;
+        TextView textViewName;
         TextView textViewDescription;
 
         public DefaultViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProfile = itemView.findViewById(R.id.imageViewProfile);
-            textViewNameId = itemView.findViewById(R.id.textViewNameId);
+            textViewName = itemView.findViewById(R.id.textViewName);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
 
             // Set click listener for the profile image
@@ -104,13 +105,13 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class SpecialViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewProfile;
-        TextView textViewNameId;
+        TextView textViewName;
         TextView textViewDescription;
 
         public SpecialViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProfile = itemView.findViewById(R.id.imageViewProfile);
-            textViewNameId = itemView.findViewById(R.id.textViewNameId);
+            textViewName = itemView.findViewById(R.id.textViewName);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
 
             // Set click listener for the profile image
@@ -128,5 +129,11 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    int generateRandomNumber() {
+        // Generate a random integer between 100000000 and 999999999 (inclusive)
+        Random random = new Random();
+        return random.nextInt(900000000) + 100000000;
     }
 }

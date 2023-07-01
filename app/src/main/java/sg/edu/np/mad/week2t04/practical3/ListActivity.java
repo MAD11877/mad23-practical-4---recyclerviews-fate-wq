@@ -31,11 +31,11 @@ public class ListActivity extends AppCompatActivity {
             String name = faker.name().firstName();
             String description = "Description " + (i + 1);
             boolean followed = random.nextBoolean();
-            int id = generateRandomNumber();
 
-            User user = new User(name, description,id,followed);
+            User user = new User(name, description,i, followed);
             userList.add(user);
         }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         UserAdapter userAdapter = new UserAdapter(userList);
         recyclerView.setAdapter(userAdapter);
@@ -44,19 +44,21 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 User user = userList.get(position);
+                int randomNumber = userAdapter.generateRandomNumber();
+
 
                 // Show AlertDialog with name
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
                 builder.setTitle("Profile");
-                builder.setMessage(user.getName() + user.getId());
+                builder.setMessage(user.getName());
                 builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         // Launch MainActivity
                         // Launch MainActivity and pass the user data
                         Intent intent = new Intent(ListActivity.this, MainActivity.class);
                         intent.putExtra("user", user);
+                        intent.putExtra("randomNumber", randomNumber);
                         startActivity(intent);
 
                         dialog.dismiss();
@@ -72,12 +74,6 @@ public class ListActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-    }
-
-    private int generateRandomNumber() {
-        // Generate a random integer between 100000000 and 999999999 (inclusive)
-        Random random = new Random();
-        return random.nextInt(900000000) + 100000000;
     }
 }
 
